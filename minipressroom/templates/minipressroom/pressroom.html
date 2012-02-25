@@ -1,0 +1,28 @@
+{% load i18n %}
+<style>
+
+.pressroom { width:100%; overflow:hidden;font-family:Arial, Helvetica, sans-serif;font-size:12px}
+.pressroom .pressroom-news { width:100%;height:auto; display:block; margin-bottom:20px;border-bottom:1px dotted #AAA9A9;}
+.pressroom .pressroom-image { width:140px; padding:10px;min-width:140px;}
+.pressroom .pressroom-image img { width:100%;height:auto;min-width:100%; }
+.pressroom .pressroom-content { vertical-align:top;margin-bottom:10px;width:100%;}
+.pressroom .pressroom-content .pressroom-link { float:right;margin-top:10px; vertical-align:bottom;}
+.pressroom .pressroom-content p { }
+.pressroom .pressroom-title { padding:5px 2%; background: #F1F1F1;line-height: 18px;margin-bottom: 20px;text-align: center;width:96%;display:block;font-weight:800; }
+</style>
+
+    {% for s in sections %}
+    <table class="pressroom">
+        <h2>{{s}}</h2>
+        {% for n in s.get_news %}
+            <tr class="pressroom-news">
+                <td class="pressroom-image"><a href="{{n.link}}" target="_blank">{% if n.image %}<img src="{{n.image.url}}" alt="{{n.title}}"/>{%endif%}</a></td>
+                <td class="pressroom-content">
+                    <span class="pressroom-title">{{n.title}} // <em>{{n.date|date}}</em></span>
+                    <p>{{n.abstract|safe}}</p>
+                    <a href="{{n.link}}" target="_blank" class="pressroom-link">{% trans "Ver" %}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endfor %}
